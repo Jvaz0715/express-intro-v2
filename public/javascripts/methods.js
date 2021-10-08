@@ -1,1 +1,1 @@
-console.log("method.js was here")
+// console.log("method.js was here")
