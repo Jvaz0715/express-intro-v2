@@ -1,7 +1,10 @@
 const express = require("express");
 const logger = require("morgan");
-
+const path = require("path"); //baked in from node
 const app = express();
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs"); //this tells express to use view engine and use ejs
 
 //logger (or morgan) will log to your node env(Server)
    //what type of req is being made i.e. get, post etc. 
@@ -64,4 +67,8 @@ app.listen(3000, function(){
 M-Model: the database
 V-View: client and what is on screen
 C-Controller: how the logic is handled
+
+EJS
+   A Template engine that we learned as a precursor for React.js (or angular for those who use that)
+   This pulls all the data, while React only pulls data that is changed.
 */
