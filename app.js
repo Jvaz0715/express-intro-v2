@@ -13,6 +13,7 @@ app.set("view engine", "ejs"); //this tells express to use view engine and use e
    
 app.use(logger("dev"));
 app.use(express.json());//this gives our backend the opportunity to parse JSON
+app.use(express.static(path.join(__dirname, "public")));
 
 /*
 Middleware(Above)
