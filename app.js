@@ -21,14 +21,17 @@ Middleware(Above)
 
 //making a GET request
 app.get('/', function(req, res){
-   res.json({
-      name: "hamster",
-      friends: ['tom', 'eli'],
-      food: {
-         food1: "burger",
-         food2: "soup"
-      }
-   })
+   // res.json({
+   //    name: "hamster",
+   //    friends: ['tom', 'eli'],
+   //    food: {
+   //       food1: "burger",
+   //       food2: "soup"
+   //    }
+   // })
+
+   //now that we have ejs we well switch to res.render
+   res.render("index");//because of path and ejs we are now RENDERING what is in the /views/index.ejs file
 });
 
 app.get('/clothing', function(req, res){
