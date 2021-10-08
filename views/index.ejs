@@ -5,11 +5,28 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="/stylesheets/style.css">
-   <title>Document</title>
+   <title>Express with ejs</title>
 </head>
 <body>
    <div>
       <h1>Hello James</h1>
    </div>
+   <hr />
+   <% if (user) { %>
+      <div>
+         Welcome back <%- user -%>
+      </div>
+      <% } else { %>
+         <div>
+            Please Login
+         </div>
+      <% } %>
+
+   <hr />
+   <div>
+      <img src="https://i.pinimg.com/originals/e1/56/77/e156774cc1f1834fbe5cb7851c4c4708.jpg" alt="hamster eating">
+   </div>
+
+   <script src="/javascripts/methods.js"></script>
 </body>
 </html>
