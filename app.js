@@ -9,10 +9,15 @@ const app = express();
    // success or error number (200, 304, 500, 404, etx) 
    
 app.use(logger("dev"));
+app.use(express.json());//this gives our backend the opportunity to parse JSON
+
+/*
+Middleware(Above)
+   it means what abilities this app is using
+*/
 
 //making a GET request
 app.get('/', function(req, res){
-   //res.send('Hello Class');
    res.json({
       name: "hamster",
       friends: ['tom', 'eli'],
@@ -36,18 +41,27 @@ app.get('/:product', function(req,res){
       price: 100,
       type: req.params.product,//this will come from what is typed as the url/:product so /jeans will make the type: jeans
    })
-})
+});
 
-/* Essentially, don't think of this in the scope of the APIs you use from online (weather, maps, movies). This will come in handy with finding users in the backends you will make for your applications. */
+//using POST to create
+app.post('/create-product', function (req,res){
+   console.log(req.body)
+   res.json({
+      data: req.body,
+   })
+});
 
-/*
-
-Middleware
-   NPM morgan: 
+/* Essentially, don't think of this in the scope of the APIs you use from online (weather, maps, movies). This will come in handy with finding users in the backend you will make for your applications. */
 
 
-*/
 
 app.listen(3000, function(){
    console.log(`Server is running on PORT: ${3000}`);
 })
+
+
+/*
+M-Model: the database
+V-View: client and what is on screen
+C-Controller: how the logic is handled
+*/
