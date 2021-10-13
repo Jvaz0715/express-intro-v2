@@ -151,4 +151,24 @@ router.put("/update-team/:name", function(req, res) {
    }
 });
 
+//deleting a team
+// could be deleted by name, by id, or by information provided in delete
+
+router.delete("/delete-by-id/:id", function(req, res){
+   let teamIndex = teamArray.findIndex((team) => team.id === req.params.id);
+
+   if (teamIndex > -1) {
+      teamArray.splice(teamIndex, 1)
+
+      res.json({ teamArray })
+      
+      
+   } else {
+      res.json({ message: "cannot delete a team that does not exist"})
+   }
+
+
+})
+
+
 module.exports = router;
