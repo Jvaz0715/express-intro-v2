@@ -48,6 +48,40 @@ router.get('/', function(req, res){
          data: teamArray,
       })
    }
+});
+
+router.get("/get-team-by-id/:id", function(req, res){
+   const id = Number(req.params.id);
+   let foundTeam;
+   teamArray.forEach((team) => {
+      if (team.id === id) {
+         foundTeam = team;
+      }
+   });
+
+   if (!foundTeam){
+      res.json({ message: "the team id does not exist "})
+   } else {
+      res.json({foundTeam})
+   }
 })
+
+router.get("/get-team-by-name/:name", function(req, res){
+   const name = req.params.name;
+
+   let foundTeam;
+
+   teamArray.forEach((team) => {
+      if(team.name === name) {
+         foundTeam = team;
+      }
+   })
+
+   if(!foundTeam){
+      res.json({ message: "that team name does not exist"})
+   } else {
+      res.json({foundTeam})
+   }
+});
 
 module.exports = router;
