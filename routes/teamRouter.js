@@ -153,7 +153,7 @@ router.put("/update-team/:name", function(req, res) {
 
 //deleting a team
 // could be deleted by name, by id, or by information provided in delete
-
+// use SPLICE rather than filter because filter returns a new array, it doesn't mutate the given array which in this case is what we want to do
 router.delete("/delete-by-id/:id", function(req, res){
    let teamIndex = teamArray.findIndex((team) => team.id === req.params.id);
 
@@ -166,9 +166,7 @@ router.delete("/delete-by-id/:id", function(req, res){
    } else {
       res.json({ message: "cannot delete a team that does not exist"})
    }
-
-
-})
+});
 
 
 module.exports = router;
