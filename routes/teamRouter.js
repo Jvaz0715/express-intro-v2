@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
+const uuidv4 = require("uuid").v4;
 
 let teamArray = [
    {
-      id: 1,
+      id: uuidv4(),
       name: "Lakers",
    },
    {
-      id: 2,
+      id: uuidv4(),
       name: "Knicks",
    },
    {
-      id: 3,
+      id: uuidv4(),
       name: "Nets",
    }
 ];
@@ -51,7 +52,11 @@ router.get('/', function(req, res){
 });
 
 router.get("/get-team-by-id/:id", function(req, res){
-   const id = Number(req.params.id);
+   // used when we were hardcoding a number into the param
+   // const id = Number(req.params.id);
+
+   // uuidv4 version
+   const id = req.params.id;
    let foundTeam;
    teamArray.forEach((team) => {
       if (team.id === id) {
@@ -85,9 +90,18 @@ router.get("/get-team-by-name/:name", function(req, res){
 });
 
 // adding a team
+//uuid (npm i uuid) will add unique id to your API objects!
 
 router.post("/create-team", function(req, res){
-   res.json({message: req.body})
+   let newTeamObj = {
+      id: uuidv4(),
+      name: req.body.name,
+   }
+
+   teamArray.push(newTeamObj);
+   
+   res.json({ teamArray });
+   
 })
 
 module.exports = router;
