@@ -117,7 +117,7 @@ router.post("/create-team", function(req, res){
 });
 
 //updating a team
-
+// if you don't want to update by name to avoid exposing name consider using ID
 router.put("/update-team/:name", function(req, res) {
    let canUpdate = false;
    let foundTeam;
@@ -131,11 +131,24 @@ router.put("/update-team/:name", function(req, res) {
 
    if(canUpdate) {
       // the req.body.updatedName will be coming from the BODY of the PUT request in postman
-      foundTeam.name = req.body.updatedName;
-      res.json({ foundTeam })
+      // foundTeam.name = req.body.updatedName;
+      // res.json({ foundTeam })
+
+      // NOTE: Reflect on the differences between .indexOf() and .findIndex()
+      //the below will findIndex if the updatedName already exists, any return other than a -1 will mean that the team does exist
+      // in order to update, we want isFound === -1
+      let isFound = teamArray.findIndex((team) => team.name === req.body.updatedName);
+
+      if (isFound > -1) {
+         res.json({ message: "cannot update to a team that already exists"})
+      } else {
+         foundTeam.name = req.body.updatedName;
+         res.json({ message: "team successfully updated" })
+      }
+
    } else {
       res.json({ message: "Team not found! Cannot update!"})
    }
-})
+});
 
 module.exports = router;
