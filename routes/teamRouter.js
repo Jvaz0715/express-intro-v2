@@ -93,15 +93,49 @@ router.get("/get-team-by-name/:name", function(req, res){
 //uuid (npm i uuid) will add unique id to your API objects!
 
 router.post("/create-team", function(req, res){
-   let newTeamObj = {
-      id: uuidv4(),
-      name: req.body.name,
+   let notFound = true;
+
+   teamArray.forEach((team) => {
+      if(team.name === req.body.name){
+         notFound = false;
+      }
+   });
+
+   if(notFound === false) {
+      res.json({message: "that team already exists"})
+   } else {
+      let newTeamObj = {
+         id: uuidv4(),
+         name: req.body.name,
+      }
+
+      teamArray.push(newTeamObj);
+
+      res.json({ teamArray })
    }
 
-   teamArray.push(newTeamObj);
-   
-   res.json({ teamArray });
-   
+});
+
+//updating a team
+
+router.put("/update-team/:name", function(req, res) {
+   let canUpdate = false;
+   let foundTeam;
+
+   teamArray.forEach((team) => {
+      if (team.name === req.params.name) {
+         canUpdate = true;
+         foundTeam = team;
+      }
+   })
+
+   if(canUpdate) {
+      // the req.body.updatedName will be coming from the BODY of the PUT request in postman
+      foundTeam.name = req.body.updatedName;
+      res.json({ foundTeam })
+   } else {
+      res.json({ message: "Team not found! Cannot update!"})
+   }
 })
 
 module.exports = router;
