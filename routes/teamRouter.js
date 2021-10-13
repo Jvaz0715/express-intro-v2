@@ -84,4 +84,10 @@ router.get("/get-team-by-name/:name", function(req, res){
    }
 });
 
+// adding a team
+
+router.post("/create-team", function(req, res){
+   res.json({message: req.body})
+})
+
 module.exports = router;
